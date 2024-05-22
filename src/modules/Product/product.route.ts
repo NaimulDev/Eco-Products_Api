@@ -1,9 +1,11 @@
 import express from "express";
 import { ProductControllar } from "./product.controllar";
+import { validate } from "../Validation/validate";
+import { productSchema } from "../Validation/product.validation";
 
 const router = express.Router();
 
-router.post("/", ProductControllar.createProductDb);
+router.post("/", validate(productSchema), ProductControllar.createProductDb);
 
 router.get("/", ProductControllar.getAllProductDb);
 
