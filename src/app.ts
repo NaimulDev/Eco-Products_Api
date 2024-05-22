@@ -17,7 +17,7 @@ app.use("/api/orders", OrderRouter);
 
 // Root route
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello Prodects..!!");
+  res.send("ECommerce Product api Ready..!!");
 });
 
 export default app;
