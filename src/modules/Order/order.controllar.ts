@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { OrderService } from "./order.service";
 
+interface CustomError extends Error {
+  statusCode?: number;
+}
+
 //create order
 const createOrderDb = async (req: Request, res: Response) => {
   try {
@@ -11,11 +15,12 @@ const createOrderDb = async (req: Request, res: Response) => {
       message: "Your Order Created Successfully",
       data: result,
     });
-  } catch (err: any) {
+  } catch (err) {
+    const error = err as CustomError;
     res.status(400).json({
       success: false,
       message: "This Order Not Create",
-      error: err,
+      error: error.message,
     });
   }
 };
@@ -28,7 +33,7 @@ const getallOrderDb = async (req: Request, res: Response) => {
     let result;
     if (email) {
       result = await OrderService.getOrderByEmail(email);
-      
+
       //Not Orders found email
       if (!result.length) {
         return res.status(404).json({
@@ -44,7 +49,8 @@ const getallOrderDb = async (req: Request, res: Response) => {
       message: "Orders fetched successfully!",
       data: result,
     });
-  } catch (error: any) {
+  } catch (err) {
+    const error = err as CustomError;
     res.status(500).json({
       success: false,
       message: "Something went wrong while fetching orders",
@@ -52,7 +58,6 @@ const getallOrderDb = async (req: Request, res: Response) => {
     });
   }
 };
-
 
 export const OrderControllar = {
   createOrderDb,
