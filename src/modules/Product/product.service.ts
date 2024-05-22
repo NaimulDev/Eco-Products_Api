@@ -34,7 +34,7 @@ const deleteProduct = async (id: string) => {
   return result;
 };
 
-//Searc A Product
+//Search A Product
 const searchProduct = async (Term: string) => {
   const result = await Product.find({
     $or: [
