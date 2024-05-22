@@ -13,4 +13,6 @@ router.get("/:productId", ProductControllar.getASingleProductDb);
 
 router.put("/:productId", ProductControllar.updateProductDb);
 
+router.delete("/:productId", ProductControllar.deleteProductDb);
+
 export const ProductRouter = router;

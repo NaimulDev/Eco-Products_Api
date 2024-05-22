@@ -106,6 +106,27 @@ const updateProductDb = async (req: Request, res: Response) => {
   }
 };
 
+//Delete A Product
+const deleteProductDb = async (req: Request, res: Response) => {
+  try {
+    const productId = req.params.productId;
+    //product Id
+    await ProductService.deleteProduct(productId);
+    res.status(200).json({
+      success: true,
+      message: "A Product deleted successfully!",
+      data: null,
+    });
+  } catch (err) {
+    const error = err as CustomError;
+    res.status(500).json({
+      success: false,
+      message: "Something was wrong",
+      error: error.message,
+    });
+  }
+};
+
 //export all functionality
 export const ProductControllar = {
   createProductDb,
@@ -113,4 +134,5 @@ export const ProductControllar = {
   searchProductDb,
   getASingleProductDb,
   updateProductDb,
+  deleteProductDb,
 };

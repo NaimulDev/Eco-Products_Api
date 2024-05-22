@@ -28,6 +28,12 @@ const updateProduct = async (id: string, productData: Partial<EProduct>) => {
   return result;
 };
 
+//Delete A Product
+const deleteProduct = async (id: string) => {
+  const result = await Product.findByIdAndDelete(id);
+  return result;
+};
+
 //Searc A Product
 const searchProduct = async (Term: string) => {
   const result = await Product.find({
@@ -47,4 +53,5 @@ export const ProductService = {
   getSingleProduct,
   updateProduct,
   searchProduct,
+  deleteProduct,
 };
