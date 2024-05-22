@@ -13,8 +13,38 @@ const getAllProduct = async () => {
   return result;
 };
 
+//get a Single Product
+const getSingleProduct = async (id: string) => {
+  //get id
+  const result = await Product.findById(id);
+  return result;
+};
+
+//Update A Product
+const updateProduct = async (id: string, productData: Partial<EProduct>) => {
+  const result = await Product.findByIdAndUpdate(id, productData, {
+    new: true,
+  });
+  return result;
+};
+
+//Searc A Product
+const searchProduct = async (Term: string) => {
+  const result = await Product.find({
+    $or: [
+      { name: { $regex: Term, $options: "i" } },
+      { description: { $regex: Term, $options: "i" } },
+      { tags: { $regex: Term, $options: "i" } },
+    ],
+  });
+  return result;
+};
+
 //export all function
 export const ProductService = {
   createProduct,
   getAllProduct,
+  getSingleProduct,
+  updateProduct,
+  searchProduct,
 };
